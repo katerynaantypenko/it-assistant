@@ -1,0 +1,71 @@
+{
+  "realm": "it-assistant",
+  "displayName": "IT Assistant",
+  "enabled": true,
+  "sslRequired": "none",
+  "clients": [
+    {
+      "clientId": "it-assistant-web",
+      "name": "IT Assistant",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "local-dev-only-not-a-real-secret",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://localhost:5173/login/oauth2/code/oidc"
+      ],
+      "webOrigins": [
+        "http://localhost:5173"
+      ],
+      "protocolMappers": [
+        {
+          "name": "mcp-kb-server-audience",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "consentRequired": false,
+          "config": {
+            "included.custom.audience": "mcp-kb-server",
+            "access.token.claim": "true",
+            "id.token.claim": "false"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "olena",
+      "email": "olena@example.com",
+      "emailVerified": true,
+      "firstName": "Olena",
+      "lastName": "Kovalenko",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "test",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "andrii",
+      "email": "andrii@example.com",
+      "emailVerified": true,
+      "firstName": "Andrii",
+      "lastName": "Shevchuk",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "test",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}

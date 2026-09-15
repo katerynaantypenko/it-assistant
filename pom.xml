@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.13</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>tech.itassistant</groupId>
+	<artifactId>it-assistant</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>it-assistant</name>
+	<description>Internal IT knowledge base assistant - MCP server, chat backend and web client</description>
+
+	<modules>
+		<module>mcp-kb-server</module>
+		<module>chat-backend</module>
+	</modules>
+
+	<properties>
+		<java.version>21</java.version>
+		<mcp.sdk.version>2.0.1</mcp.sdk.version>
+		<openai.sdk.version>4.63.1</openai.sdk.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Official MCP Java SDK. mcp-core ships the Streamable HTTP transports for both sides. -->
+			<dependency>
+				<groupId>io.modelcontextprotocol.sdk</groupId>
+				<artifactId>mcp-bom</artifactId>
+				<version>${mcp.sdk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- Official OpenAI Java SDK. -->
+			<dependency>
+				<groupId>com.openai</groupId>
+				<artifactId>openai-java</artifactId>
+				<version>${openai.sdk.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<!--
+							Recent JDKs no longer pick annotation processors up from the compile classpath,
+							so Lombok is named here explicitly. The version comes from the Spring Boot parent.
+						-->
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</path>
+						</annotationProcessorPaths>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

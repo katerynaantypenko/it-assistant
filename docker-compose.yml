@@ -1,0 +1,16 @@
+# Local OIDC provider. The task asks for a real OAuth2 / OIDC flow, and running the provider
+# ourselves keeps the demo self-contained: no external account to register, no secrets to obtain.
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7
+    container_name: it-assistant-keycloak
+    # 8080 and 8081 already belong to chat-backend and mcp-kb-server.
+    command: [ "start-dev", "--http-port=8180", "--import-realm" ]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8180:8180"
+    volumes:
+      # The realm is imported on the first start only. Recreate the container to pick up edits.
+      - ./keycloak/it-assistant-realm.json:/opt/keycloak/data/import/it-assistant-realm.json:ro
